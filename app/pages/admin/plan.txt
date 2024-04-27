@@ -1,0 +1,77 @@
+create new TABLE ever create of POST
+
+The title of the POST should become the TABLE name
+
+Columns Needed in table:
+- id
+- name
+- url storage
+- file storage
+- date created?
+
+
+
+----------
+
+editing POST title should also edit the TABLE name
+sources:
+- https://www.geeksforgeeks.org/sql-alter-rename/
+- https://tutorialdeep.com/sql/sql-rename-table/
+
+
+
+
+
+POST.PHP:
+
+ <?php
+            if (!empty($_POST)) {
+              $errors = [];
+
+              if (empty($_POST['name'])) {
+                $errors['name'] = "A name is required";
+              } else if (!preg_match("/^[a-zA-Z]+$/", $_POST['name'])) {
+                $errors['name'] = "Name can only have letters and no spaces";
+              }
+
+              //validate file
+              if (!empty($_FILES['file']['name'])) {
+                $destination = "";
+
+                $folder = "file_uploads/";
+                if (!file_exists($folder)) {
+                  mkdir($folder, 0777, true);
+                }
+
+                $destination = $folder .  $_FILES['file']['name'];
+                move_uploaded_file($_FILES['file']['tmp_name'], $destination);
+              }
+
+              if (empty($errors)) {
+
+                if (!empty($destination)) {
+                  //save to database
+                  $data = [];
+                  $data['file']     = $destination;
+                  $data['name'] = $_POST['name'];
+
+                  $table_name = $row['title'];
+                  // Update the database query accordingly
+                  $query = "insert into $table_name (name, file_storage) values (:name, :file)";
+                } else {
+                  $errors['file'] = "Destination is empty";
+                }
+
+                query($query, $data);
+              }
+            }
+
+
+            ?>
+
+
+------------------------
+
+
+
+
