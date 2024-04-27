@@ -14,7 +14,6 @@
         $errors['category_id'] = "A category is required";
       }
 
-      // TODO: fix image upload, make system the same as in post.php file upload
       //validate image
       $allowed = ['image/jpeg', 'image/png', 'image/webp'];
       if (!empty($_FILES['image']['name'])) {
@@ -27,12 +26,28 @@
             mkdir($folder, 0777, true);
           }
 
-          $destination = $folder . $_FILES['image']['name'];
-          move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+          // Generate a unique filename for the destination
+          $destination = $folder . time() . $_FILES['image']['name'] . '.jpg'; // Save as JPEG
+
+          // Check if the uploaded file is PNG or WebP, then convert to JPEG
+          if ($_FILES['image']['type'] === 'image/png') {
+            $image = imagecreatefrompng($_FILES['image']['tmp_name']);
+            imagejpeg($image, $destination, 100); // Convert PNG to JPEG with 100% quality
+            imagedestroy($image); // Free up memory
+          } elseif ($_FILES['image']['type'] === 'image/webp') {
+            $image = imagecreatefromwebp($_FILES['image']['tmp_name']);
+            imagejpeg($image, $destination, 100); // Convert WebP to JPEG with 100% quality
+            imagedestroy($image); // Free up memory
+          } else {
+            // For JPEG files, just move it without conversion
+            move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+          }
+
+          // Optionally, resize the image
           resize_image($destination);
         }
       } else {
-        $errors['image'] = "A featured image is required";
+        $errors['image'] = "Feature image is required";
       }
 
       $slug = str_to_url($_POST['title']);
@@ -94,7 +109,6 @@
           $errors['category_id'] = "A category is required";
         }
 
-        //validate image
         $allowed = ['image/jpeg', 'image/png', 'image/webp'];
         if (!empty($_FILES['image']['name'])) {
           $destination = "";
@@ -106,8 +120,24 @@
               mkdir($folder, 0777, true);
             }
 
-            $destination = $folder . $_FILES['image']['name'];
-            move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+            // Generate a unique filename for the destination
+            $destination = $folder . time() . $_FILES['image']['name'] . '.jpg'; // Save as JPEG
+
+            // Check if the uploaded file is PNG or WebP, then convert to JPEG
+            if ($_FILES['image']['type'] === 'image/png') {
+              $image = imagecreatefrompng($_FILES['image']['tmp_name']);
+              imagejpeg($image, $destination, 100); // Convert PNG to JPEG with 100% quality
+              imagedestroy($image); // Free up memory
+            } elseif ($_FILES['image']['type'] === 'image/webp') {
+              $image = imagecreatefromwebp($_FILES['image']['tmp_name']);
+              imagejpeg($image, $destination, 100); // Convert WebP to JPEG with 100% quality
+              imagedestroy($image); // Free up memory
+            } else {
+              // For JPEG files, just move it without conversion
+              move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+            }
+
+            // Optionally, resize the image
             resize_image($destination);
           }
         }

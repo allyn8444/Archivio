@@ -48,11 +48,30 @@
             mkdir($folder, 0777, true);
           }
 
-          $destination = $folder . time() . $_FILES['image']['name'];
-          move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+          // Generate a unique filename for the destination
+          $destination = $folder . time() . $_FILES['image']['name'] . '.jpg'; // Save as JPEG
+
+          // Check if the uploaded file is PNG or WebP, then convert to JPEG
+          if ($_FILES['image']['type'] === 'image/png') {
+            $image = imagecreatefrompng($_FILES['image']['tmp_name']);
+            imagejpeg($image, $destination, 100); // Convert PNG to JPEG with 100% quality
+            imagedestroy($image); // Free up memory
+          } elseif ($_FILES['image']['type'] === 'image/webp') {
+            $image = imagecreatefromwebp($_FILES['image']['tmp_name']);
+            imagejpeg($image, $destination, 100); // Convert WebP to JPEG with 100% quality
+            imagedestroy($image); // Free up memory
+          } else {
+            // For JPEG files, just move it without conversion
+            move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+          }
+
+          // Optionally, resize the image
           resize_image($destination);
         }
+      } else {
+        $errors['image'] = "No image was uploaded";
       }
+
 
       if (empty($errors)) {
         //save to database
@@ -115,9 +134,10 @@
             if ($_POST['password'] !== $_POST['retype_password']) {
           $errors['password'] = "Passwords do not match";
         }
-
         //validate image
-        $allowed = ['image/jpeg', 'image/png', 'image/webp'];
+        $allowed = [
+          'image/jpeg', 'image/png', 'image/webp'
+        ];
         if (!empty($_FILES['image']['name'])) {
           $destination = "";
           if (!in_array($_FILES['image']['type'], $allowed)) {
@@ -128,8 +148,24 @@
               mkdir($folder, 0777, true);
             }
 
-            $destination = $folder . time() . $_FILES['image']['name'];
-            move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+            // Generate a unique filename for the destination
+            $destination = $folder . time() . $_FILES['image']['name'] . '.jpg'; // Save as JPEG
+
+            // Check if the uploaded file is PNG or WebP, then convert to JPEG
+            if ($_FILES['image']['type'] === 'image/png') {
+              $image = imagecreatefrompng($_FILES['image']['tmp_name']);
+              imagejpeg($image, $destination, 100); // Convert PNG to JPEG with 100% quality
+              imagedestroy($image); // Free up memory
+            } elseif ($_FILES['image']['type'] === 'image/webp') {
+              $image = imagecreatefromwebp($_FILES['image']['tmp_name']);
+              imagejpeg($image, $destination, 100); // Convert WebP to JPEG with 100% quality
+              imagedestroy($image); // Free up memory
+            } else {
+              // For JPEG files, just move it without conversion
+              move_uploaded_file($_FILES['image']['tmp_name'], $destination);
+            }
+
+            // Optionally, resize the image
             resize_image($destination);
           }
         }
