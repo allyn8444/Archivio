@@ -134,12 +134,14 @@
             if ($_POST['password'] !== $_POST['retype_password']) {
           $errors['password'] = "Passwords do not match";
         }
+
         //validate image
         $allowed = [
           'image/jpeg', 'image/png', 'image/webp'
         ];
         if (!empty($_FILES['image']['name'])) {
           $destination = "";
+
           if (!in_array($_FILES['image']['type'], $allowed)) {
             $errors['image'] = "Image format not supported";
           } else {
@@ -156,10 +158,12 @@
               $image = imagecreatefrompng($_FILES['image']['tmp_name']);
               imagejpeg($image, $destination, 100); // Convert PNG to JPEG with 100% quality
               imagedestroy($image); // Free up memory
+
             } elseif ($_FILES['image']['type'] === 'image/webp') {
               $image = imagecreatefromwebp($_FILES['image']['tmp_name']);
               imagejpeg($image, $destination, 100); // Convert WebP to JPEG with 100% quality
               imagedestroy($image); // Free up memory
+
             } else {
               // For JPEG files, just move it without conversion
               move_uploaded_file($_FILES['image']['tmp_name'], $destination);
