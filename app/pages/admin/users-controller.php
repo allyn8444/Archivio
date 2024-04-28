@@ -49,7 +49,7 @@
           }
 
           // Generate a unique filename for the destination
-          $destination = $folder . time() . $_FILES['image']['name'] . '.jpg'; // Save as JPEG
+          $destination = $folder . time() . '.jpg'; // Save as JPEG
 
           // Check if the uploaded file is PNG or WebP, then convert to JPEG
           if ($_FILES['image']['type'] === 'image/png') {
@@ -151,7 +151,7 @@
             }
 
             // Generate a unique filename for the destination
-            $destination = $folder . time() . $_FILES['image']['name'] . '.jpg'; // Save as JPEG
+            $destination = $folder . time() . '.jpg'; // Save as JPEG
 
             // Check if the uploaded file is PNG or WebP, then convert to JPEG
             if ($_FILES['image']['type'] === 'image/png') {

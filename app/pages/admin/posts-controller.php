@@ -27,7 +27,7 @@
           }
 
           // Generate a unique filename for the destination
-          $destination = $folder . time() . $_FILES['image']['name'] . '.jpg'; // Save as JPEG
+          $destination = $folder . time() . '.jpg'; // Save as JPEG
 
           // Check if the uploaded file is PNG or WebP, then convert to JPEG
           if ($_FILES['image']['type'] === 'image/png') {
@@ -109,6 +109,7 @@
           $errors['category_id'] = "A category is required";
         }
 
+        // VALIDATE IMAGE
         $allowed = ['image/jpeg', 'image/png', 'image/webp'];
         if (!empty($_FILES['image']['name'])) {
           $destination = "";
@@ -121,7 +122,7 @@
             }
 
             // Generate a unique filename for the destination
-            $destination = $folder . time() . $_FILES['image']['name'] . '.jpg'; // Save as JPEG
+            $destination = $folder . time() . '.jpg'; // Save as JPEG
 
             // Check if the uploaded file is PNG or WebP, then convert to JPEG
             if ($_FILES['image']['type'] === 'image/png') {
