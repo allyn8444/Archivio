@@ -31,7 +31,7 @@ if (!empty($_POST)) {
   <meta name="description" content="">
   <title>Login - <?= APP_NAME ?></title>
 
-  <link href="<?= ROOT ?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?= ROOT ?>/assets/bootstrap/css/bootstrap.css" rel="stylesheet">
 
   <style>
     .bd-placeholder-img {
@@ -113,12 +113,7 @@ if (!empty($_POST)) {
         <label for="floatingPassword">Password</label>
       </div>
 
-      <div class="my-2">Dont have an account? <a href="<?= ROOT ?>/signup">Signup here</a></div>
-      <div class="checkbox mb-3">
-        <label>
-          <input name="remember" type="checkbox" value="1"> Remember me
-        </label>
-      </div>
+
       <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
       <p class="mt-5 mb-3 text-muted">&copy; <?= date("Y") ?></p>
     </form>

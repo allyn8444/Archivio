@@ -240,6 +240,7 @@
 							<a href="<?= ROOT ?>/admin/users/edit/<?= $row['id'] ?>">
 								<button class="btn btn-warning text-white btn-sm"><i class="bi bi-pencil-square"></i></button>
 							</a>
+
 							<a href="<?= ROOT ?>/admin/users/delete/<?= $row['id'] ?>">
 								<button class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></button>
 							</a>

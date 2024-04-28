@@ -7,7 +7,8 @@
   <meta name="description" content="">
   <title>Home - <?= APP_NAME ?></title>
 
-  <link href="<?= ROOT ?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?= ROOT ?>/assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+  <link href="<?= ROOT ?>/assets/css/bootstrap-icons.css" rel="stylesheet">
 
   <style>
     .bi {
@@ -18,9 +19,15 @@
 
   <!-- Custom styles for this template -->
   <link href="<?= ROOT ?>/assets/css/headers.css" rel="stylesheet">
-</head>
 
-<body>
+</head>
+<style>
+
+</style>
+
+
+
+<body class="text-primary"> <!-- TODO: for change text color -->
 
   <header class="p-3 border-bottom">
     <div class="container">
@@ -30,6 +37,7 @@
           <img class="bi me-2" src="" width="60" height="52" style="object-fit:cover;">
         </a>
 
+        <!-- TODO: Change link colors . THIS IS NAVBAR -->
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="<?= ROOT ?>" class="nav-link px-2 <?= $url[0] == 'home' ? 'link-primary' : 'link-dark' ?>">Home</a></li>
           <li><a href="<?= ROOT ?>/blog" class="nav-link px-2  <?= $url[0] == 'blog' ? 'link-primary' : 'link-dark' ?>">Blog</a></li>
@@ -92,6 +100,8 @@
 
       </div>
     </div>
+
+
   </header>
 
   <?php

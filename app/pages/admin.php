@@ -38,7 +38,7 @@ if ($section == 'users') {
   <meta name="description" content="">
   <title>Admin - My Blog</title>
 
-  <link href="<?= ROOT ?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?= ROOT ?>/assets/bootstrap/css/bootstrap.css" rel="stylesheet">
   <link href="<?= ROOT ?>/assets/css/bootstrap-icons.css" rel="stylesheet">
 
   <style>
@@ -194,25 +194,27 @@ if ($section == 'users') {
 
     <script src="<?= ROOT ?>/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <?php endif; ?>
+  <?php else : ?>
 
 
-  <!-- || ================ IF NOT ADMIN ========================= ||  -->
-  <div class="container">
-    <div class="row justify-content-center align-items-center" style="height: 100vh;">
-      <div class=" col-md-8 col-sm-10 col-12 text-center">
-        <h1>WHY ARE YOU HERE, USER?</h1>
 
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe src="https://giphy.com/embed/L0coY9I1D2BnaKln9a" class="embed-responsive-item" allowFullScreen></iframe>
+    <!-- || ================ IF NOT ADMIN ========================= ||  -->
+    <div class="container">
+      <div class="row justify-content-center align-items-center" style="height: 100vh;">
+        <div class=" col-md-8 col-sm-10 col-12 text-center">
+          <h1>WHY ARE YOU HERE, USER?</h1>
+
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe src="https://giphy.com/embed/L0coY9I1D2BnaKln9a" class="embed-responsive-item" allowFullScreen></iframe>
+          </div>
+
+          <a class="nav-link" href="<?= ROOT ?>">
+            <button class="btn mt-3">Back to Home</button>
+          </a>
         </div>
-
-        <a class="nav-link" href="<?= ROOT ?>">
-          <button class="btn mt-3">Back to Home</button>
-        </a>
       </div>
     </div>
-  </div>
+  <?php endif; ?>
 
 
 </body>
