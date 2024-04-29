@@ -1,19 +1,43 @@
-<div class="col-md-6">
-  <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-    <div class="col p-4 d-flex flex-column position-static">
-      <strong class="d-inline-block mb-2 text-primary"><?= esc($row['category'] ?? 'Unknown') ?></strong>
+<style>
+  .folder {
+    width: 255.541px;
+    height: 144.682px;
+    flex-shrink: 1;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    background: rgba(255, 255, 255, 0.48);
+    backdrop-filter: blur(11.100000381469727px);
+    position: absolute;
+    top: 2.5rem;
+    left: -2rem;
+  }
 
-      <a href="<?= ROOT ?>/post/<?= $row['slug'] ?>">
-        <h3 class="mb-0"><?= esc($row['title']) ?></h3>
-      </a>
-      <div class="mb-1 text-muted"><?= date("jS M, Y", strtotime($row['date'])) ?></div>
-      <a href="<?= ROOT ?>/post/<?= $row['slug'] ?>" class="stretched-link">View Files</a>
-    </div>
+  .info {
+    color: black;
+  }
 
-    <div class="col-lg-5 col-12 d-lg-block">
-      <a href="<?= ROOT ?>/post/<?= $row['slug'] ?>">
-        <img class="bd-placeholder-img w-100" width="200" height="250" style="object-fit:cover;" src="<?= get_image($row['image']) ?>">
-      </a>
+  hr {
+    margin: 5px;
+
+  }
+</style>
+
+<div class="col-xl-3 col-lg-4  col-md-6 mb-md-5 my-4 d-flex justify-content-center align-items-center">
+  <a href="<?= ROOT ?>/post/<?= $row['slug'] ?>">
+    <div style="width:fit-content;" class="row  position-relative g-0 flex-md-row">
+      <img src="<?= ROOT ?>/assets/images/folder-bg.svg" alt="">
+
+      <div class="folder ">
+        <div class="info m-2">
+          <h4 class="mb-0"><?= esc($row['title']) ?></h4>
+          <p class="mb-0 " style=" height:65px; padding-top:5px;"><?= esc(strip_tags($row['content'])) ?></p>
+          <hr>
+          <span class="d-flex justify-content-around">
+            <strong class="d-inline-block"><?= esc($row['category'] ?? 'Unknown') ?></strong>
+            <div class="mb-1"><?= date("jS M, Y", strtotime($row['date'])) ?></div>
+          </span>
+        </div>
+      </div>
     </div>
-  </div>
+  </a>
 </div>
