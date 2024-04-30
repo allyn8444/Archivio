@@ -27,25 +27,24 @@
 
 
 
-<body class="text-primary"> <!-- TODO: for change text color -->
+<body class="text-white bg-night"> <!-- TODO: for change text color -->
 
   <header class="p-3 border-bottom">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+        <a href="<?= ROOT ?>" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
 
-          <img class="bi me-2" src="" width="60" height="52" style="object-fit:cover;">
+          <img class="bi me-2" src="<?= ROOT ?>/assets/images/logo.svg" style="object-fit:cover;">
         </a>
 
         <!-- TODO: Change link colors . THIS IS NAVBAR -->
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="<?= ROOT ?>" class="nav-link px-2 <?= $url[0] == 'home' ? 'link-primary' : 'link-dark' ?>">Home</a></li>
-          <li><a href="<?= ROOT ?>/blog" class="nav-link px-2  <?= $url[0] == 'blog' ? 'link-primary' : 'link-dark' ?>">Blog</a></li>
-          <li><a href="<?= ROOT ?>/search" class="nav-link px-2  <?= $url[0] == 'search' ? 'link-primary' : 'link-dark' ?>">Search</a></li>
-          <li><a href="<?= ROOT ?>/contact" class="nav-link px-2  <?= $url[0] == 'contact' ? 'link-primary' : 'link-dark' ?>">Contact</a></li>
+          <li><a href="<?= ROOT ?>" class="nav-link px-2 <?= $url[0] == 'home' ? 'text-yellow' : 'link-light' ?>">Home</a></li>
+          <li><a href="<?= ROOT ?>/repositories" class="nav-link px-2  <?= $url[0] == 'repositories' ? 'text-yellow' : 'link-light' ?>">Repositories</a></li>
+          <li><a href="<?= ROOT ?>/contact" class="nav-link px-2  <?= $url[0] == 'contact' ? 'text-yellow' : 'link-light' ?>">Contact</a></li>
           <li>
-            <span class="nav-link px-2 link-dark dropdown text-end">
-              <a href="#" class="d-block <?= $url[0] == 'category' ? 'link-primary' : 'link-dark' ?> text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="nav-link px-2 link-light dropdown text-end">
+              <a href="#" class="d-block <?= $url[0] == 'category' ? 'link-primary' : 'link-light' ?> text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 Category
               </a>
               <ul class="dropdown-menu text-small">
@@ -71,13 +70,13 @@
         <form action="<?= ROOT ?>/search" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
           <div class="input-group ">
             <input value="<?= $_GET['find'] ?? '' ?>" name="find" type="search" class="form-control" placeholder="Search..." aria-label="Search">
-            <button class="btn btn-primary">Find</button>
+            <button class="btn btn-yellow">Find</button>
           </div>
         </form>
 
         <?php if (logged_in()) : ?>
           <div class="dropdown text-end">
-            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <a href="#" class="d-block link-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="<?= get_image(user('image')) ?>" alt="mdo" style="object-fit: cover;" width="32" height="32" class="rounded-circle">
             </a>
             <ul class="dropdown-menu text-small">
@@ -106,8 +105,9 @@
 
   <?php
 
+  // TODO: disable the slider (and delete the slider.php later)
   if ($url[0] == 'home')
-    include '../app/pages/includes/slider.php';
+    include '../app/pages/includes/hero-sec.php';
   ?>
 
   <main class="p-2">
