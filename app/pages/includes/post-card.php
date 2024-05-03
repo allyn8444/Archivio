@@ -8,8 +8,8 @@
     background: rgba(255, 255, 255, 0.48);
     backdrop-filter: blur(11.100000381469727px);
     position: absolute;
-    top: 2.5rem;
-    left: -2rem;
+    top: 2.2rem;
+    left: -1.5rem;
   }
 
   .info {
@@ -22,18 +22,20 @@
   }
 </style>
 
-<div class="col-xl-3 col-lg-4  col-md-6 mb-md-5 my-4 d-flex justify-content-center align-items-center">
+<div class="col-xl-3 col-lg-4  col-md-6 mb-md-5 my-4  d-flex justify-content-center align-items-center">
   <a href="<?= ROOT ?>/post/<?= $row['slug'] ?>">
     <div style="width:fit-content;" class="row  position-relative g-0 flex-md-row">
       <img src="<?= ROOT ?>/assets/images/folder-bg.svg" alt="">
 
       <div class="folder ">
         <div class="info m-2">
-          <h4 class="mb-0"><?= esc($row['title']) ?></h4>
-          <p class="mb-0 " style=" height:65px; padding-top:5px;"><?= esc(strip_tags($row['content'])) ?></p>
+          <div class="px-2">
+            <h4 class="mb-0"><?= esc($row['title']) ?></h4>
+            <p class="mb-0 " style=" height:65px; padding-top:5px; font-size:1rem;"><?= esc(strip_tags($row['content'])) ?></p>
+          </div>
           <hr>
           <span class="d-flex justify-content-around">
-            <strong class="d-inline-block"><?= esc($row['category'] ?? 'Unknown') ?></strong>
+            <strong class="d-inline-block"><i class="bi bi-bookmark-fill"></i>&nbsp;<?= esc($row['category'] ?? 'Unknown') ?></strong>
             <div class="mb-1"><?= date("jS M, Y", strtotime($row['date'])) ?></div>
           </span>
         </div>
