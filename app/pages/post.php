@@ -1,7 +1,8 @@
 <?php include '../app/pages/includes/header.php'; ?>
 
 <div class="mx-auto col-md-10">
-  <h3 class="mx-4">Blog</h3>
+  <!-- TODO: change name -->
+  <h3 class="mx-4">Blog (Files later)</h3>
 
   <div class="row my-2 justify-content-center">
 
@@ -246,7 +247,6 @@
 
 
 
-
             <!-- SHOW RESULTS -->
             <?php
             //database connection details
@@ -269,104 +269,106 @@
 
             ?>
 
-            <div class="container mt-5">
+            <div class="container-fluid mt-5">
 
               <h2>Uploaded Files</h2>
               <?php
 
               ?>
-              <table class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>ID:</th>
-                    <th>File Name</th>
-                    <th>File Size</th>
-                    <th>File Type</th>
-                    <th>Action </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  // Display the uploaded files and download links
-                  if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                      $file_path = "file_uploads/" . $row['filename'];
-                  ?>
-                      <tr>
-                        <td><?php echo $row['id'] ?></td>
-                        <td><?php echo $row['filename']; ?></td>
-                        <td><?php echo $row['filesize']; ?> bytes</td>
-                        <td><?php echo $row['filetype']; ?></td>
+              <div class="table-responsive">
+                <table class="table  table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th>ID:</th>
+                      <th>File Name</th>
+                      <th>File Size</th>
+                      <th>File Type</th>
+                      <th>Action </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    // Display the uploaded files and download links
+                    if ($result->num_rows > 0) {
+                      while ($row = $result->fetch_assoc()) {
+                        $file_path = "file_uploads/" . $row['filename'];
+                    ?>
+                        <tr>
+                          <td><?php echo $row['id'] ?></td>
+                          <td><?php echo $row['filename']; ?></td>
+                          <td><?php echo number_format($row['filesize'] / (1024 * 1024), 2); ?> MB</td>
+                          <td><?php echo $row['filetype']; ?></td>
 
-                        <!-- TODO: fix Actions width in table -->
-                        <td>
-                          <a href="<?= ROOT ?>/<?= $file_path; ?>" class="btn btn-success" download><i class="bi bi-file-earmark-arrow-down-fill"></i> Download</a>
+                          <!-- TODO: fix Actions width in table -->
+                          <td>
+                            <a href="<?= ROOT ?>/<?= $file_path; ?>" class="btn btn-success" download><i class="bi bi-file-earmark-arrow-down-fill"></i> Download</a>
 
-                          <!-- DELETING FILE BUTTON-->
-                          <?php
-                          // Your PHP code to retrieve $row from the database goes here
-                          if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_id']) && $_POST['delete_id'] == $row['id']) {
-                            // Perform deletion
-                            $query = "DELETE FROM $table_name WHERE id = :id";
-                            query($query, ['id' => $row['id']]);
+                            <!-- DELETING FILE BUTTON-->
+                            <?php
+                            // Your PHP code to retrieve $row from the database goes here
+                            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_id']) && $_POST['delete_id'] == $row['id']) {
+                              // Perform deletion
+                              $query = "DELETE FROM $table_name WHERE id = :id";
+                              query($query, ['id' => $row['id']]);
 
-                            // Additional actions after deletion (e.g., redirect, update UI, etc.)
-                            echo '<script>alert("File deleted successfully."); window.location.href = window.location.href;</script>';
-                          }
+                              // Additional actions after deletion (e.g., redirect, update UI, etc.)
+                              echo '<script>alert("File deleted successfully."); window.location.href = window.location.href;</script>';
+                            }
 
-                          ?>
+                            ?>
 
-                          <!-- DELETE trigger modal (ADMIN ONLY) -->
-                          <?php if (isset($_SESSION['USER']) && isset($_SESSION['USER']['role']) && $_SESSION['USER']['role'] == 'admin') : ?>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                              <i class="bi bi-trash-fill"></i>
-                            </button>
-                          <?php endif; ?>
+                            <!-- DELETE trigger modal (ADMIN ONLY) -->
+                            <?php if (isset($_SESSION['USER']) && isset($_SESSION['USER']['role']) && $_SESSION['USER']['role'] == 'admin') : ?>
+                              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                <i class="bi bi-trash-fill"></i>
+                              </button>
+                            <?php endif; ?>
 
 
-                          <!--DELETE  Modal -->
-                          <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteInfo" aria-hidden="true">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="deleteInfo">Are you sure?</h1>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                  <!-- TODO: LAYOUT INFO WELL -->
-                                  <?php echo $row['id'] ?> <br>
-                                  <?php echo $row['filename']; ?><br>
-                                  <?php echo $row['filesize']; ?> bytes<br>
-                                  <?php echo $row['filetype']; ?><br>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                  <form method="POST">
-                                    <input type="hidden" name="delete_id" value="<?= $row['id'] ?>">
-                                    <button type="submit" class="delete-btn btn btn-danger">Delete</button>
-                                  </form>
+                            <!--DELETE  Modal -->
+                            <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteInfo" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="deleteInfo">Are you sure?</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <!-- TODO: LAYOUT INFO WELL -->
+                                    <?php echo $row['id'] ?> <br>
+                                    <?php echo $row['filename']; ?><br>
+                                    <?php echo $row['filesize']; ?> bytes<br>
+                                    <?php echo $row['filetype']; ?><br>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <form method="POST">
+                                      <input type="hidden" name="delete_id" value="<?= $row['id'] ?>">
+                                      <button type="submit" class="delete-btn btn btn-danger">Delete</button>
+                                    </form>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
 
 
 
-                        </td>
+                          </td>
 
+                        </tr>
+                      <?php
+                      }
+                    } else {
+                      ?>
+                      <tr>
+                        <td colspan="4">No files uploaded yet.</td>
                       </tr>
                     <?php
                     }
-                  } else {
                     ?>
-                    <tr>
-                      <td colspan="4">No files uploaded yet.</td>
-                    </tr>
-                  <?php
-                  }
-                  ?>
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              </div>
             </div>
 
             <?php
